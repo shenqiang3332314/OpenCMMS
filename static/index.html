@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMMS - 设备维护保养系统</title>
+    <link rel="stylesheet" href="/static/css/common.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .page-container {
+            display: none;
+        }
+        .page-container.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- 侧边栏 -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-brand">CMMS 系统</div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-page="dashboard">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                    </svg>
+                    工作台
+                </a>
+                <a href="#" class="nav-item" data-page="assets">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                    </svg>
+                    设备台账
+                </a>
+                <a href="#" class="nav-item" data-page="workorders">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                    </svg>
+                    工单管理
+                </a>
+                <a href="#" class="nav-item" data-page="maintenance">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                    保养计划
+                </a>
+                <a href="#" class="nav-item" data-page="inspections">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                    </svg>
+                    点检记录
+                </a>
+                <a href="#" class="nav-item" data-page="spareparts">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                    </svg>
+                    备件管理
+                </a>
+                <a href="#" class="nav-item" data-page="reports">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                    </svg>
+                    报表统计
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatar">A</div>
+                    <div class="user-name" id="userName">Admin</div>
+                    <button class="btn btn-secondary btn-sm logout-btn" id="logoutBtn">退出</button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- 主内容区 -->
+        <main class="main-content">
+            <header class="header">
+                <h1 class="header-title" id="pageTitle">工作台</h1>
+            </header>
+
+            <div class="content">
+                <!-- 工作台页面 -->
+                <div id="page-dashboard" class="page-container active">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-label">总设备数</div>
+                            <div class="stat-value" id="statTotalAssets">-</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">进行中工单</div>
+                            <div class="stat-value" id="statActiveWorkOrders">-</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">待处理工单</div>
+                            <div class="stat-value" id="statPendingWorkOrders">-</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">低库存备件</div>
+                            <div class="stat-value" id="statLowStockParts">-</div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">最近工单</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>工单号</th>
+                                            <th>设备</th>
+                                            <th>类型</th>
+                                            <th>优先级</th>
+                                            <th>状态</th>
+                                            <th>创建时间</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="recentWorkOrders">
+                                        <tr>
+                                            <td colspan="6" style="text-align: center; color: var(--gray-500);">加载中...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 设备台账页面 -->
+                <div id="page-assets" class="page-container">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">设备台账 <span id="assetCountBadge" style="background: #007bff; color: white; padding: 2px 8px; border-radius: 12px; font-size: 12px; margin-left: 8px;">0</span></h3>
+                            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                                <button class="btn btn-secondary btn-sm" onclick="downloadAssetTemplate()">下载模板</button>
+                                <button class="btn btn-secondary btn-sm" onclick="document.getElementById('importFileInput').click()">批量导入</button>
+                                <input type="file" id="importFileInput" accept=".xlsx,.xls,.csv" style="display: none;" onchange="uploadAssetFile(this)">
+                                <button class="btn btn-secondary btn-sm" onclick="exportAssetData()">导出台账</button>
+                                <button class="btn btn-info btn-sm" onclick="syncAssetsFromExternal()">数据同步</button>
+                                <button class="btn btn-warning btn-sm" onclick="toggleBatchActions()">批量操作</button>
+                                <button class="btn btn-secondary btn-sm" onclick="toggleAdvancedFilter()">高级筛选</button>
+                                <button class="btn btn-info btn-sm" onclick="showAssetStatistics()">统计报表</button>
+                                <button class="btn btn-primary btn-sm" onclick="showAssetModal()">新增设备</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <!-- 基础搜索栏 -->
+                            <div class="search-bar">
+                                <input type="text" id="assetSearch" class="form-input search-input" placeholder="搜索设备名称、编码...">
+                                <select id="assetStatusFilter" class="form-select">
+                                    <option value="">全部状态</option>
+                                    <option value="active">运行中</option>
+                                    <option value="inactive">停机</option>
+                                    <option value="maintenance">保养中</option>
+                                    <option value="retired">报废</option>
+                                </select>
+                                <button class="btn btn-primary" onclick="searchAssets()">搜索</button>
+                            </div>
+
+                            <!-- 高级筛选区域（默认隐藏） -->
+                            <div id="advancedFilterArea" style="display: none; margin-bottom: 16px; padding: 16px; background: #f5f5f5; border-radius: 4px;">
+                                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 12px;">
+                                    <div>
+                                        <label style="font-size: 12px; color: #666;">工厂</label>
+                                        <select id="filterFactory" class="form-select" onchange="loadFilterOptions('factory', 'workshop')">
+                                            <option value="">全部</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label style="font-size: 12px; color: #666;">车间</label>
+                                        <select id="filterWorkshop" class="form-select" onchange="loadFilterOptions('workshop', 'line')">
+                                            <option value="">全部</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label style="font-size: 12px; color: #666;">产线</label>
+                                        <select id="filterLine" class="form-select">
+                                            <option value="">全部</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label style="font-size: 12px; color: #666;">厂商</label>
+                                        <select id="filterVendor" class="form-select">
+                                            <option value="">全部</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 12px;">
+                                    <div>
+                                        <label style="font-size: 12px; color: #666;">重要性</label>
+                                        <select id="filterCriticality" class="form-select">
+                                            <option value="">全部</option>
+                                            <option value="critical">关键</option>
+                                            <option value="important">重要</option>
+                                            <option value="normal">一般</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label style="font-size: 12px; color: #666;">启用日期起</label>
+                                        <input type="date" id="filterStartDateFrom" class="form-input">
+                                    </div>
+                                    <div>
+                                        <label style="font-size: 12px; color: #666;">启用日期止</label>
+                                        <input type="date" id="filterStartDateTo" class="form-input">
+                                    </div>
+                                    <div style="display: flex; align-items: flex-end; gap: 8px;">
+                                        <button class="btn btn-primary" onclick="applyAdvancedFilter()">应用筛选</button>
+                                        <button class="btn btn-secondary" onclick="resetAdvancedFilter()">重置</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 批量操作区域（默认隐藏） -->
+                            <div id="batchActionsArea" style="display: none; margin-bottom: 12px; padding: 12px; background: #fff3cd; border-radius: 4px; align-items: center; justify-content: space-between;">
+                                <span style="font-size: 14px;">已选择 <strong id="selectedCount">0</strong> 项</span>
+                                <div style="display: flex; gap: 8px;">
+                                    <button class="btn btn-primary btn-sm" onclick="batchEditAssets()">批量编辑</button>
+                                    <button class="btn btn-success btn-sm" onclick="batchUpdateStatus()">批量修改状态</button>
+                                    <button class="btn btn-danger btn-sm" onclick="batchDeleteAssets()">批量删除</button>
+                                    <button class="btn btn-secondary btn-sm" onclick="clearBatchSelection()">取消选择</button>
+                                </div>
+                            </div>
+
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 40px;">
+                                                <input type="checkbox" id="selectAllAssets" onchange="toggleSelectAll(this)">
+                                            </th>
+                                            <th>设备编码</th>
+                                            <th>设备名称</th>
+                                            <th>位置</th>
+                                            <th>厂商</th>
+                                            <th>状态</th>
+                                            <th>启用日期</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="assetsTableBody">
+                                        <tr><td colspan="8" style="text-align: center;">加载中...</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- 分页组件 -->
+                            <div id="assetsPagination" style="display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-top: 1px solid #e0e0e0;">
+                                <div style="font-size: 14px; color: #666;">
+                                    显示第 <span id="paginationStart">0</span> - <span id="paginationEnd">0</span> 条，共 <span id="paginationTotal">0</span> 条
+                                </div>
+                                <div style="display: flex; gap: 8px; align-items: center;">
+                                    <button class="btn btn-secondary btn-sm" id="paginationFirstBtn" onclick="goToFirstPage()">首页</button>
+                                    <button class="btn btn-secondary btn-sm" id="paginationPrevBtn" onclick="goToPrevPage()">上一页</button>
+                                    <div id="paginationNumbers" style="display: flex; gap: 4px;"></div>
+                                    <button class="btn btn-secondary btn-sm" id="paginationNextBtn" onclick="goToNextPage()">下一页</button>
+                                    <button class="btn btn-secondary btn-sm" id="paginationLastBtn" onclick="goToLastPage()">末页</button>
+                                    <select id="pageSizeSelect" class="form-select" style="width: 100px;" onchange="changePageSize()">
+                                        <option value="20">20</option>
+                                        <option value="50" selected>50</option>
+                                        <option value="100">100</option>
+                                        <option value="500">500</option>
+                                        <option value="all">显示全部</option>
+                                    </select>
+                                    <span style="font-size: 14px; color: #666;">条/页</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 设备新增/编辑模态框 -->
+                    <div id="assetModal" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title" id="assetModalTitle">新增设备</h3>
+                                <button class="modal-close" onclick="closeAssetModal()">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="assetForm">
+                                    <div class="form-group">
+                                        <label class="form-label">设备编码 <span style="color: red;">*</span></label>
+                                        <input type="text" id="assetCode" class="form-input" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">设备名称 <span style="color: red;">*</span></label>
+                                        <input type="text" id="assetName" class="form-input" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">工序</label>
+                                        <input type="text" id="assetProcess" class="form-input">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">设备ID</label>
+                                        <input type="text" id="assetEquipmentId" class="form-input">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">机台名称</label>
+                                        <input type="text" id="assetMachineName" class="form-input">
+                                    </div>
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px;">
+                                        <div class="form-group">
+                                            <label class="form-label">工厂</label>
+                                            <input type="text" id="assetFactory" class="form-input">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">车间</label>
+                                            <input type="text" id="assetWorkshop" class="form-input">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">产线</label>
+                                            <input type="text" id="assetLine" class="form-input">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">工位</label>
+                                            <input type="text" id="assetStation" class="form-input">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">厂商</label>
+                                        <input type="text" id="assetVendor" class="form-input">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">型号</label>
+                                        <input type="text" id="assetModel" class="form-input">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">序列号</label>
+                                        <input type="text" id="assetSerialNumber" class="form-input">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">规格说明</label>
+                                        <textarea id="assetSpecification" class="form-textarea" rows="3"></textarea>
+                                    </div>
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                                        <div class="form-group">
+                                            <label class="form-label">启用日期</label>
+                                            <input type="date" id="assetStartDate" class="form-input">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">保修到期</label>
+                                            <input type="date" id="assetWarrantyExpiry" class="form-input">
+                                        </div>
+                                    </div>
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                                        <div class="form-group">
+                                            <label class="form-label">状态</label>
+                                            <select id="assetStatus" class="form-select">
+                                                <option value="active">运行中</option>
+                                                <option value="inactive">停机</option>
+                                                <option value="maintenance">保养中</option>
+                                                <option value="retired">报废</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">重要性</label>
+                                            <select id="assetCriticality" class="form-select">
+                                                <option value="normal">一般</option>
+                                                <option value="important">重要</option>
+                                                <option value="critical">关键</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">成本中心</label>
+                                        <input type="text" id="assetCostCenter" class="form-input">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">设备价值</label>
+                                        <input type="number" id="assetValue" class="form-input" step="0.01">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">预计使用年限(年)</label>
+                                        <input type="number" id="assetExpectedLife" class="form-input" min="0" max="100">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">当前读数</label>
+                                        <input type="number" id="assetMeterReading" class="form-input" step="0.01" value="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">读数单位</label>
+                                        <input type="text" id="assetMeterUnit" class="form-input" placeholder="如: 小时、次数、件">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">备注</label>
+                                        <textarea id="assetNotes" class="form-textarea" rows="3"></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" onclick="closeAssetModal()">取消</button>
+                                <button class="btn btn-primary" onclick="saveAsset()">保存</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 统计报表模态框 -->
+                <div id="statisticsModal" class="modal">
+                    <div class="modal-content" style="max-width: 900px;">
+                        <div class="modal-header">
+                            <h3 class="modal-title">设备统计报表</h3>
+                            <button class="modal-close" onclick="closeStatisticsModal()">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px;">
+                                <div style="background: #e3f2fd; padding: 16px; border-radius: 8px; text-align: center;">
+                                    <div style="font-size: 12px; color: #1976d2;">设备总数</div>
+                                    <div style="font-size: 24px; font-weight: bold; color: #1976d2;" id="statTotalCount">0</div>
+                                </div>
+                                <div style="background: #e8f5e9; padding: 16px; border-radius: 8px; text-align: center;">
+                                    <div style="font-size: 12px; color: #388e3c;">运行中</div>
+                                    <div style="font-size: 24px; font-weight: bold; color: #388e3c;" id="statActiveCount">0</div>
+                                </div>
+                                <div style="background: #fff3e0; padding: 16px; border-radius: 8px; text-align: center;">
+                                    <div style="font-size: 12px; color: #f57c00;">停机</div>
+                                    <div style="font-size: 24px; font-weight: bold; color: #f57c00;" id="statInactiveCount">0</div>
+                                </div>
+                                <div style="background: #ffebee; padding: 16px; border-radius: 8px; text-align: center;">
+                                    <div style="font-size: 12px; color: #d32f2f;">保养中</div>
+                                    <div style="font-size: 24px; font-weight: bold; color: #d32f2f;" id="statMaintenanceCount">0</div>
+                                </div>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                                <div>
+                                    <h4 style="margin-bottom: 12px;">按状态分布</h4>
+                                    <canvas id="statusChart" style="max-height: 200px;"></canvas>
+                                </div>
+                                <div>
+                                    <h4 style="margin-bottom: 12px;">按重要性分布</h4>
+                                    <canvas id="criticalityChart" style="max-height: 200px;"></canvas>
+                                </div>
+                            </div>
+                            <div style="margin-top: 16px;">
+                                <h4 style="margin-bottom: 12px;">按位置分布</h4>
+                                <canvas id="locationChart" style="max-height: 200px;"></canvas>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" onclick="closeStatisticsModal()">关闭</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 批量修改状态模态框 -->
+                <div id="batchStatusModal" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title">批量修改状态</h3>
+                            <button class="modal-close" onclick="closeBatchStatusModal()">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label class="form-label">新状态</label>
+                                <select id="batchNewStatus" class="form-select">
+                                    <option value="active">运行中</option>
+                                    <option value="inactive">停机</option>
+                                    <option value="maintenance">保养中</option>
+                                    <option value="retired">报废</option>
+                                </select>
+                            </div>
+                            <p style="color: #666; font-size: 14px;">将对 <strong id="batchStatusCount">0</strong> 个设备应用此状态更改。</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" onclick="closeBatchStatusModal()">取消</button>
+                            <button class="btn btn-primary" onclick="confirmBatchStatusUpdate()">确认修改</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 工单管理页面 -->
+                <div id="page-workorders" class="page-container">
+                    <div class="card">
+                        <div class="card-body">
+                            <p style="color: var(--gray-500);">工单管理模块加载中...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 保养计划页面 -->
+                <div id="page-maintenance" class="page-container">
+                    <div class="card">
+                        <div class="card-body">
+                            <p style="color: var(--gray-500);">保养计划模块加载中...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 点检记录页面 -->
+                <div id="page-inspections" class="page-container">
+                    <div class="card">
+                        <div class="card-body">
+                            <p style="color: var(--gray-500);">点检记录模块加载中...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 备件管理页面 -->
+                <div id="page-spareparts" class="page-container">
+                    <div class="card">
+                        <div class="card-body">
+                            <p style="color: var(--gray-500);">备件管理模块加载中...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 报表统计页面 -->
+                <div id="page-reports" class="page-container">
+                    <div class="card">
+                        <div class="card-body">
+                            <p style="color: var(--gray-500);">报表统计模块加载中...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/static/js/api.js"></script>
+    <script src="/static/js/assets.js"></script>
+    <script src="/static/js/workorders.js"></script>
+    <script src="/static/js/maintenance.js"></script>
+    <script src="/static/js/index.js"></script>
+</body>
+</html>
